@@ -82,8 +82,7 @@ NOTE - Please ignore the following warning. As I have not initialized logger for
 
 "log4j:WARN No appenders could be found for logger (com.assignment.theatreSeating.impl.TheatreSeatingServiceImpl)."
 
-NOTE : You can also run the test by giving command "mvn clean install -Dmaven.test.skip=true"
-This will compile the code and create Jar only after TEST is successful
+NOTE : You can also skip the test using command"mvn clean install -Dmaven.test.skip=true"
 
 ****Assumption****
 1) The application is developed Considering only for single venue
@@ -100,6 +99,6 @@ Sample input:
 ****Testing****
 Performance Testing:
 Junit Test cases:
-1) Written 11 test cases to cover various features
+1) Written 6 test cases to cover various features
 	
 
