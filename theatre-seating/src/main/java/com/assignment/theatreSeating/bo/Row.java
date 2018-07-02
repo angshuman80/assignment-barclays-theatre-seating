@@ -1,6 +1,6 @@
 package com.assignment.theatreSeating.bo;
 
-public class Row {
+public final class Row {
 	
 	private int rowId;
 	private Section section;

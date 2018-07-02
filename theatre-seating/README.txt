@@ -17,7 +17,7 @@ Prerequisites
 Installation
 
 1) Download the code from Git remote repository
-2) The first step should create a folder named theatre-seating in the folder where you unzipped the file
+2) The first step should create a folder named theatre-seating in the folder where you download the code from remote git repository
    Example : c:\<local_folder_path>\theatre-seating
    
 Steps to compile the application

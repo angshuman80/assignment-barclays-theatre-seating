@@ -29,18 +29,28 @@ public class TheatreSeatingApplication {
 
 		BasicConfigurator.configure();
 		TheatreSeatingApplication application = new TheatreSeatingApplication();
-		application.startUserInteraction();
+		try {
+			application.startUserInteraction();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * This method is to initiate User Interaction
+	 * 
+	 * @throws Exception
 	 */
-	private void startUserInteraction() {
+	private void startUserInteraction() throws Exception {
 
 		Scanner scanner = new Scanner(System.in);
 
 		try {
-			reservationProcess(scanner, setup());
+			String layout = "6 6" + System.lineSeparator() + "3 5 5 3" + System.lineSeparator() + "4 6 6 4"
+					+ System.lineSeparator() + "2 8 8 2" + System.lineSeparator() + "6 6";
+			TheatreSeatingService seatingService = new TheatreSeatingServiceImpl(layout);
+			reservationProcess(scanner, seatingService);
 		} finally {
 			scanner.close();
 		}
@@ -48,72 +58,8 @@ public class TheatreSeatingApplication {
 	}
 
 	/**
-	 * Setting up as per the sample input
-	 * 
-	 * @return
-	 */
-	private TheatreSeatingService setup() {
-		List<Row> rows = new LinkedList<Row>();
-		for (int i = 1; i <= 5; i++) {
-			if (i == 1 || i == 5) {
-				for (int j = 1; j <= 2; j++) {
-					if (j == 1 || j == 2) {
-						Section section = new Section(j, 6);
-						Row row = new Row(i, section);
-						rows.add(row);
-					}
-				}
-			}
-			if (i == 2) {
-				for (int j = 1; j <= 4; j++) {
-					if (j == 1 || j == 4) {
-						Section section = new Section(j, 3);
-						Row row = new Row(i, section);
-						rows.add(row);
-					}
-					if (j == 2 || j == 3) {
-						Section section = new Section(j, 5);
-						Row row = new Row(i, section);
-						rows.add(row);
-					}
-				}
-			}
-			if (i == 3) {
-				for (int j = 1; j <= 4; j++) {
-					if (j == 1 || j == 4) {
-						Section section = new Section(j, 4);
-						Row row = new Row(i, section);
-						rows.add(row);
-					}
-					if (j == 2 || j == 3) {
-						Section section = new Section(j, 6);
-						Row row = new Row(i, section);
-						rows.add(row);
-					}
-				}
-			}
-			if (i == 4) {
-				for (int j = 1; j <= 4; j++) {
-					if (j == 1 || j == 4) {
-						Section section = new Section(j, 2);
-						Row row = new Row(i, section);
-						rows.add(row);
-					}
-					if (j == 2 || j == 3) {
-						Section section = new Section(j, 8);
-						Row row = new Row(i, section);
-						rows.add(row);
-					}
-				}
-			}
-		}
-
-		return new TheatreSeatingServiceImpl(rows);
-
-	}
-
-	/**
 	 * Start user interactive reservation process
+	 * 
 	 * @param scanner
 	 * @param theatreSeatingService
 	 */

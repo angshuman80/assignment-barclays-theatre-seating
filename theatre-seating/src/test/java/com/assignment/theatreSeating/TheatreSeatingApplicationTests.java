@@ -1,14 +1,9 @@
 package com.assignment.theatreSeating;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.assignment.theatreSeating.bo.Row;
-import com.assignment.theatreSeating.bo.Section;
 import com.assignment.theatreSeating.exception.UnableToProcessRequestException;
 import com.assignment.theatreSeating.impl.TheatreSeatingServiceImpl;
 
@@ -28,7 +23,11 @@ public class TheatreSeatingApplicationTests {
 
 	@Before
 	public void setUp() {
-		seatingService = initializeVenue();
+		try {
+			seatingService = new TheatreSeatingServiceImpl(getLayout());
+		} catch (Exception ignore) {
+			
+		}
 	}
 
 	@Test
@@ -92,69 +91,9 @@ public class TheatreSeatingApplicationTests {
 
 
 
-	private TheatreSeatingService initializeVenue() {
-		List<Row> rows = new LinkedList<Row>();
-		for (int i = 1; i <= 5; i++) {
-			if (i == 1 || i == 5) {
-				for (int j = 1; j <= 2; j++) {
-					if (j == 1 || j == 2) {
-						Section section = new Section(j, 6);
-						Row row = new Row(i, section);
-						rows.add(row);
-						totalSeats=totalSeats+6;
-					}
-				}
-			}
-			if (i == 2) {
-				for (int j = 1; j <= 4; j++) {
-					if (j == 1 || j == 4) {
-						Section section = new Section(j, 3);
-						Row row = new Row(i, section);
-						rows.add(row);
-						totalSeats=totalSeats+3;
-					}
-					if (j == 2 || j == 3) {
-						Section section = new Section(j, 5);
-						Row row = new Row(i, section);
-						rows.add(row);
-						totalSeats=totalSeats+5;
-					}
-				}
-			}
-			if (i == 3) {
-				for (int j = 1; j <= 4; j++) {
-					if (j == 1 || j == 4) {
-						Section section = new Section(j, 4);
-						Row row = new Row(i, section);
-						rows.add(row);
-						totalSeats=totalSeats+4;
-					}
-					if (j == 2 || j == 3) {
-						Section section = new Section(j, 6);
-						Row row = new Row(i, section);
-						rows.add(row);
-						totalSeats=totalSeats+6;
-					}
-				}
-			}
-			if (i == 4) {
-				for (int j = 1; j <= 4; j++) {
-					if (j == 1 || j == 4) {
-						Section section = new Section(j, 2);
-						Row row = new Row(i, section);
-						rows.add(row);
-						totalSeats=totalSeats+2;
-					}
-					if (j == 2 || j == 3) {
-						Section section = new Section(j, 8);
-						Row row = new Row(i, section);
-						rows.add(row);
-						totalSeats=totalSeats+8;
-					}
-				}
-			}
-		}
-
-		return new TheatreSeatingServiceImpl(rows);
+	private String getLayout() {
+		String layout = "6 6" + System.lineSeparator() + "3 5 5 3" + System.lineSeparator() + "4 6 6 4"
+				+ System.lineSeparator() + "2 8 8 2" + System.lineSeparator() + "6 6";
+		return layout;
 	}
 }

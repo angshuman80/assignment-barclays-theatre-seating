@@ -47,9 +47,9 @@ public class TheatreSeatingServiceImpl implements TheatreSeatingService {
 	 */
 
 	private Lock lock = new ReentrantLock(true);
-
 	/**
 	 * Constructor to initialize the venue
+	 * using layout
 	 * 
 	 * @param rows
 	 *            - No of rows in venue
@@ -58,12 +58,24 @@ public class TheatreSeatingServiceImpl implements TheatreSeatingService {
 	 * @param seconds
 	 *            - Time to hold the seats
 	 */
-	public TheatreSeatingServiceImpl(List<Row> rows) {
-		if(rows!=null && !rows.isEmpty()){
-			for (Row row : rows) {
-				if(row!=null && row.getSection()!=null){
-					initializeVenue(row);
+	public TheatreSeatingServiceImpl(String layout) throws Exception {
+		if(layout!=null && !layout.isEmpty()){
+			
+			String[] rows = layout.split(System.lineSeparator());
+			int rowId=1;
+			for (String row : rows) {
+				String[] sections = row.split(" ");
+				int sectionId=1;
+				for (String section : sections) {
+					if(section.equals(" ")){
+						continue;
+					}
+					Section section2 = new Section(sectionId, Integer.parseInt(section));
+					Row row2 = new Row(rowId, section2);
+					initializeVenue(row2);
+					sectionId++;
 				}
+				rowId++;
 			}
 		}
 	}
